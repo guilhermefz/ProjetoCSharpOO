@@ -1,0 +1,9 @@
+CONTA: Numero da conta: 1002, Nome: Julian, Saldo: 0;
+CLIENTE: Nome : Julian, Email: julian@gmail.com, Nascimento: 05/05/2000;
+CONTA: Numero da conta: 1004, Nome: btuno, Saldo: 0;
+CLIENTE: Nome : Guilherme, Email: gui@g, Nascimento: 04/04/2004;
+CLIENTE: Nome : felipe, Email: felipe@gmail.com, Nascimento: 03/10/2020;
+PRODUTO: Nome : Guarana, Email: 10;
+CLIENTE: Nome : Gabriel, Email: gabriel@gmail, Nascimento: 04/04/2012;
+PRODUTO: Nome : Guavirova, Email: 14;
+CLIENTE: Nome : Gustavo, Email: gu@gmail.com, Nascimento: 02/05/2004;
