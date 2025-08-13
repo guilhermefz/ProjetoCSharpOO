@@ -13,7 +13,13 @@
         public Produto()
         {
         }
-        public void CriarProduto(string caminhoText, Produto produto)
+
+        public virtual string Etiqueta()
+        {
+                       return ($"Nome: {Nome}, Preço: {Preco}");
+        }
+
+        public virtual void CriarProduto(string caminhoText, Produto produto)
         {
             using (StreamWriter sw = File.AppendText(caminhoText))
             {
@@ -21,7 +27,7 @@
             }
         }
 
-        public Produto LerBancoProdutos(string linha)
+        public virtual Produto LerBancoProdutos(string linha)
         {
             string prefixo = "PRODUTO:"; //Prefixo que identifica o início de uma linha de conta no arquivo.
             string linhaArquivo = linha.Substring(prefixo.Length);
@@ -35,7 +41,7 @@
             return produto;
         }
 
-        public void CarregarProdutos(List<Produto> produtos, string caminhoText)
+        public virtual void CarregarProdutos(List<Produto> produtos, string caminhoText)
         {
             if (File.Exists(caminhoText))
             {

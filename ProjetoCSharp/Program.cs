@@ -14,8 +14,18 @@ namespace ProjetoCSharp
             List<Cliente> clientes = new List<Cliente>();
             List<ContaBancaria> contas = new List<ContaBancaria>();
             Cliente clienteCarregar = new Cliente();
-            Produto produtoCarregar = new Produto();
+
+
+            Produto produtoCarregar = new ProdutoUsado();
             produtoCarregar.CarregarProdutos(produtos, bancoText);
+
+            Produto produtoCar = new Produto();
+            produtoCar.CarregarProdutos(produtos, bancoText);
+            
+            Produto produtoCarr = new ProdutoImportado();
+            produtoCarr.CarregarProdutos(produtos, bancoText);
+
+
             CarregarContas(contas);
             clienteCarregar.CarregarClientes(clientes, bancoText);
             int escolha = 0;
@@ -264,24 +274,45 @@ namespace ProjetoCSharp
                                 break;
                             case 3:
                                 Console.WriteLine("Cadastrar Produtos");
+                                Console.WriteLine("O Produto é novo(n), Usado(u) ou Importado(i)?");
+                                char tipoProduto = char.Parse(Console.ReadLine().ToLower());
                                 Console.Write("\n Nome do Produto:");
                                 string nomeProduto = Console.ReadLine();
                                 Console.Write("\n Preço do Produto:");
                                 double precoProduto = Convert.ToDouble(Console.ReadLine());
-                                Produto produto = new Produto(nomeProduto, precoProduto);
-                                produto.CriarProduto(bancoText, produto);
-                                produtos.Add(produto);
+                                if (tipoProduto == 'n')
+                                {
+                                    Produto produto = new Produto(nomeProduto, precoProduto);
+                                    produto.CriarProduto(bancoText, produto);
+                                    produtos.Add(produto);
+                                }else if (tipoProduto == 'u')
+                                {
+                                    Console.Write("\n Data de Fabricação no formato (dd/mm/yyyy):");
+                                    DateOnly dataFabricacao = DateOnly.Parse(Console.ReadLine());
+                                    Produto produto = new ProdutoUsado(nomeProduto, precoProduto, dataFabricacao);
+                                    produto.CriarProduto(bancoText, produto);
+                                    produtos.Add(produto);
+                                }
+                                else
+                                {
+                                    Console.Write("\n Taxa Alfândega:");
+                                    double taxaAlfandega = Convert.ToDouble(Console.ReadLine());
+                                    Produto produto = new ProdutoImportado(nomeProduto, precoProduto, taxaAlfandega);
+                                    produto.CriarProduto(bancoText, produto);
+                                    produtos.Add(produto);
+                                }
                                 Console.WriteLine("\nProduto cadastrado com sucesso!");
                                 Console.WriteLine("\nDeseja continuar? Sim-1, Não-0");
                                 final = Convert.ToInt32(Console.ReadLine());
                                 escolha = (final == 1) ? 1 : 0;
+                                Console.Clear();
                                 break;
 
                             case 4:
                                 Console.WriteLine("Listar Produtos");
                                 foreach (var p in produtos)
                                 {
-                                    Console.WriteLine($"Nome: {p.Nome}, Preco: {p.Preco}");
+                                    Console.WriteLine(p.Etiqueta());
                                 }
                                 Console.WriteLine("\nDeseja continuar? Sim-1, Não-0");
                                 final = Convert.ToInt32(Console.ReadLine());
